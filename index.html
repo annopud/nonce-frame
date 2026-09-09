@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#ff5f9e" />
+    <title>Happy 29th Birthday, Frame! 🎂</title>
+    <style>
+      :root {
+        --p: #ff5f9e;
+        --h: #ff3f7f;
+        --v: #8b5cf6;
+        --ink: #271b2b;
+        --muted: #725f70;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: Inter, system-ui, sans-serif;
+        background: linear-gradient(135deg, #fff8fb, #fff1f7, #f5efff);
+        overflow-x: hidden;
+      }
+      button {
+        font: inherit;
+      }
+      .blob {
+        position: fixed;
+        border-radius: 50%;
+        filter: blur(5px);
+        opacity: 0.28;
+        z-index: -1;
+      }
+      .b1 {
+        width: 320px;
+        height: 320px;
+        background: #ffb6d3;
+        top: -100px;
+        left: -100px;
+      }
+      .b2 {
+        width: 380px;
+        height: 380px;
+        background: #c9b7ff;
+        right: -140px;
+        top: 35%;
+      }
+      .screen {
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        padding: 30px 18px;
+      }
+      .hero {
+        text-align: center;
+        width: min(920px, 100%);
+      }
+      .eyebrow {
+        display: inline-block;
+        padding: 9px 15px;
+        border: 1px solid #ffb8d2;
+        background: #ffffff99;
+        border-radius: 999px;
+        font-weight: 800;
+        color: #a3386c;
+      }
+      h1 {
+        font-size: clamp(3.3rem, 10vw, 7.5rem);
+        line-height: 0.9;
+        margin: 25px 0 18px;
+        letter-spacing: -0.07em;
+      }
+      .gradient {
+        background: linear-gradient(100deg, var(--h), var(--v));
+        -webkit-background-clip: text;
+        color: transparent;
+      }
+      .subtitle {
+        font-size: clamp(1.05rem, 2vw, 1.35rem);
+        color: var(--muted);
+        max-width: 650px;
+        margin: 0 auto 30px;
+        line-height: 1.65;
+      }
+      .btn {
+        border: 0;
+        border-radius: 18px;
+        padding: 15px 22px;
+        font-weight: 900;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 12px 28px #ff3f7f38;
+      }
+      .btn:hover {
+        transform: translateY(-3px) scale(1.02);
+      }
+      .primary {
+        color: #fff;
+        background: linear-gradient(135deg, var(--h), var(--v));
+      }
+      .secondary {
+        background: #fff;
+        color: var(--ink);
+        box-shadow: 0 10px 25px #271b2b12;
+      }
+      .scrollhint {
+        margin-top: 28px;
+        color: #9a8295;
+      }
+      .content {
+        width: min(980px, 100%);
+        margin: auto;
+        padding: 70px 18px 100px;
+      }
+      .section {
+        margin-bottom: 90px;
+        opacity: 0;
+        transform: translateY(25px);
+        transition: 0.8s;
+      }
+      .section.show {
+        opacity: 1;
+        transform: none;
+      }
+      .section-head {
+        text-align: center;
+        margin-bottom: 28px;
+      }
+      .kicker {
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        font-weight: 900;
+        font-size: 0.8rem;
+        color: #b04478;
+      }
+      h2 {
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        letter-spacing: -0.045em;
+        margin: 8px 0;
+      }
+      .lead {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .card {
+        background: #ffffffc7;
+        border: 1px solid #fff;
+        backdrop-filter: blur(18px);
+        box-shadow: 0 24px 70px #5722512e;
+        border-radius: 30px;
+      }
+      .letter {
+        padding: clamp(24px, 5vw, 48px);
+        font-size: 1.1rem;
+        line-height: 1.85;
+      }
+      .letter p {
+        margin: 0 0 18px;
+      }
+      .punchline {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #d93670;
+        text-align: center;
+      }
+      .memories {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+      }
+      .memory {
+        min-height: 230px;
+        padding: 24px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        transition: 0.25s;
+      }
+      .memory:hover {
+        transform: translateY(-6px);
+      }
+      .memory .emoji {
+        font-size: 4rem;
+        position: absolute;
+        right: 18px;
+        top: 15px;
+      }
+      .memory h3 {
+        margin: 0 0 8px;
+      }
+      .memory p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+      .game {
+        padding: 30px;
+        text-align: center;
+      }
+      .game-area {
+        height: 330px;
+        position: relative;
+        margin: 15px 0;
+        overflow: hidden;
+        border-radius: 24px;
+        background: linear-gradient(160deg, #ffe9f3, #eee7ff);
+        border: 1px dashed #8b5cf640;
+      }
+      .score {
+        font-weight: 900;
+      }
+      .balloon {
+        position: absolute;
+        border: 0;
+        background: transparent;
+        font-size: 2.6rem;
+        cursor: pointer;
+        animation: float 2.5s ease-in-out infinite;
+      }
+      @keyframes float {
+        50% {
+          transform: translateY(-14px);
+        }
+      }
+      .present {
+        padding: 40px;
+        text-align: center;
+      }
+      .gift {
+        font-size: 7rem;
+        display: block;
+        cursor: pointer;
+        transition: 0.35s;
+      }
+      .gift:hover {
+        transform: rotate(-8deg) scale(1.08);
+      }
+      .secret {
+        display: none;
+        margin: 25px auto 0;
+        max-width: 650px;
+        padding: 24px;
+        border-radius: 22px;
+        background: #fff;
+        border: 2px solid #ffd1e2;
+      }
+      .secret.show {
+        display: block;
+        animation: pop 0.45s;
+      }
+      @keyframes pop {
+        from {
+          opacity: 0;
+          transform: scale(0.9);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      .final {
+        text-align: center;
+        padding: 42px 24px;
+      }
+      .heart {
+        font-size: 4rem;
+        animation: beat 1.2s infinite;
+      }
+      @keyframes beat {
+        50% {
+          transform: scale(1.15);
+        }
+      }
+      .footer {
+        text-align: center;
+        color: #9b8797;
+        font-size: 0.85rem;
+      }
+      .confetti {
+        position: fixed;
+        top: -20px;
+        z-index: 50;
+        pointer-events: none;
+        animation: fall linear forwards;
+      }
+      @keyframes fall {
+        to {
+          transform: translate3d(var(--x), 110vh, 0) rotate(720deg);
+          opacity: 0.9;
+        }
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translate(-50%, 30px);
+        opacity: 0;
+        background: #271b2b;
+        color: #fff;
+        padding: 13px 18px;
+        border-radius: 999px;
+        font-weight: 800;
+        z-index: 60;
+        transition: 0.3s;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translate(-50%, 0);
+      }
+      @media (max-width: 680px) {
+        .memories {
+          grid-template-columns: 1fr;
+        }
+        .memory {
+          min-height: 200px;
+        }
+        .letter {
+          font-size: 1rem;
+        }
+        .game-area {
+          height: 290px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="toast" id="toast"></div>
+    <main>
+      <section class="screen">
+        <div class="hero">
+          <div class="eyebrow">🎈 A very serious birthday website</div>
+          <h1>Happy Birthday,<br /><span class="gradient">Frame!</span></h1>
+          <p class="subtitle">
+            You are officially <strong>29</strong>. Unfortunately, this means
+            P'T is now legally required to embarrass you on the internet.
+          </p>
+          <button class="btn primary" id="start">Open your surprise 🎁</button>
+          <div class="scrollhint">
+            ↓ There may be questionable content ahead
+          </div>
+        </div>
+      </section>
+      <div class="content">
+        <section class="section" id="letter">
+          <div class="section-head">
+            <div class="kicker">From P'T</div>
+            <h2>A few words before I ruin this</h2>
+          </div>
+          <article class="card letter">
+            <p>Hey Frame,</p>
+            <p><strong>29 already.</strong></p>
+            <p>You’ve grown into someone genuinely awesome.</p>
+            <p>
+              You’re weird, funny, stubborn, and somehow still pretty great. 😂
+            </p>
+            <p>
+              I love seeing you chase the things that make you happy. You’ve got
+              your own personality, your own dreams, and your own way of doing
+              things — and honestly, that’s what makes you <em>you</em>.
+            </p>
+            <p>I’m glad I’ve had you in my life.</p>
+            <p>
+              Whether you were the colleague who told me those incredibly
+              convincing ghost stories 👻 — stories I genuinely loved because
+              they felt so real...
+            </p>
+            <p>
+              Or the friend whose travel stories made me want to actually get
+              out of the house and see the world...
+            </p>
+            <p class="punchline">
+              Somehow, you've become someone I dislike now. 😑
+            </p>
+            <p>
+              Especially because you have this incredible ability to make me
+              feel even more down on days when I'm already sad.
+            </p>
+            <p>So yes. <strong>Thank you for that.</strong> 😌</p>
+          </article>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div class="kicker">Things I won't deny</div>
+            <h2>You're actually pretty great.</h2>
+          </div>
+          <div class="memories">
+            <article class="card memory">
+              <span class="emoji">✨</span>
+              <h3>Genuinely awesome</h3>
+              <p>
+                You’ve grown into someone with your own style, dreams, and
+                personality.
+              </p>
+            </article>
+            <article class="card memory">
+              <span class="emoji">🤪</span>
+              <h3>Weird. Funny. Stubborn.</h3>
+              <p>In other words: unmistakably Frame. Somehow it works.</p>
+            </article>
+            <article class="card memory">
+              <span class="emoji">✈️</span>
+              <h3>Keep chasing happy</h3>
+              <p>
+                Your travel stories made P'T want to get out of the house.
+                That's saying something.
+              </p>
+            </article>
+            <article class="card memory">
+              <span class="emoji">👻</span>
+              <h3>Those ghost stories...</h3>
+              <p>
+                They felt way too real. And yes, I actually loved hearing them.
+              </p>
+            </article>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div class="kicker">Mini birthday mission</div>
+            <h2>Pop the balloons 🎈</h2>
+            <p class="lead">Pop 9 balloons to unlock the next part.</p>
+          </div>
+          <div class="card game">
+            <div class="score">
+              Balloons popped: <span id="score">0</span> / 9
+            </div>
+            <div class="game-area" id="area"></div>
+            <button class="btn secondary" id="reset">Reset balloons</button>
+          </div>
+        </section>
+        <section class="section">
+          <div class="section-head">
+            <div class="kicker">Your present</div>
+            <h2>I have something for you...</h2>
+          </div>
+          <div class="card present">
+            <span class="gift" id="gift">🎁</span>
+            <p class="lead">Go on. Click it.</p>
+            <div class="secret" id="secret">
+              <h3>...actually, I have nothing. 😭</h3>
+              <p>I have nothing to give — truly nothing.</p>
+              <p>Except this website.</p>
+              <p>Oh, and one thing I still haven't forgiven:</p>
+              <p style="font-size: 1.35rem; font-weight: 900; color: #d93670">
+                You said I look like Monchchichi.
+              </p>
+              <p style="font-size: 1.8rem">🐒</p>
+              <p><strong>กูแค้น.</strong></p>
+            </div>
+          </div>
+        </section>
+        <section class="section">
+          <div class="card final">
+            <div class="heart">❤️</div>
+            <h2>Anyway...</h2>
+            <p class="lead">Happy 29th Birthday, Frame.</p>
+            <p class="lead">
+              I hope this year brings you more adventures, more ridiculous
+              stories, more places to travel, and plenty of reasons to smile.
+            </p>
+            <p class="lead">
+              <strong>And despite everything...</strong><br />I'm glad you're my ศัตรู. 😌
+            </p>
+            <p><strong>— P'T / Monchchichi</strong></p>
+            <button class="btn primary" id="finale">One last thing 🎉</button>
+          </div>
+        </section>
+        <div class="footer">
+          Made with questionable amounts of sibling affection · 2026
+        </div>
+      </div>
+    </main>
+    <script>
+      const $ = (s) => document.querySelector(s),
+        toast = (m) => {
+          let t = $("#toast");
+          t.textContent = m;
+          t.classList.add("show");
+          setTimeout(() => t.classList.remove("show"), 1800);
+        };
+      function confetti(n = 100) {
+        let a = ["🎉", "✨", "💖", "🎂", "⭐", "🌸"];
+        for (let i = 0; i < n; i++) {
+          let e = document.createElement("div");
+          e.className = "confetti";
+          e.textContent = a[(Math.random() * a.length) | 0];
+          e.style.left = Math.random() * 100 + "vw";
+          e.style.fontSize = 10 + Math.random() * 18 + "px";
+          e.style.setProperty("--x", Math.random() * 240 - 120 + "px");
+          e.style.animationDuration = 2.2 + Math.random() * 2.5 + "s";
+          document.body.appendChild(e);
+          setTimeout(() => e.remove(), 5200);
+        }
+      }
+      $("#start").onclick = () => {
+        confetti(80);
+        $("#letter").scrollIntoView({ behavior: "smooth" });
+        toast("Okay Frame... you asked for this. 😌");
+      };
+      let ob = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => e.isIntersecting && e.target.classList.add("show")),
+        { threshold: 0.12 },
+      );
+      document.querySelectorAll(".section").forEach((s) => ob.observe(s));
+      let score = 0;
+      function spawn() {
+        if (score >= 9) return;
+        let b = document.createElement("button");
+        b.className = "balloon";
+        b.textContent = "🎈";
+        b.style.left = 5 + Math.random() * 85 + "%";
+        b.style.top = 8 + Math.random() * 78 + "%";
+        b.onclick = () => {
+          score++;
+          $("#score").textContent = score;
+          b.remove();
+          if (score < 9) spawn();
+          else {
+            confetti(80);
+            toast("Mission complete! 🎉");
+            setTimeout(
+              () =>
+                $("#gift").scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                }),
+              700,
+            );
+          }
+        };
+        $("#area").appendChild(b);
+      }
+      function reset() {
+        score = 0;
+        $("#score").textContent = 0;
+        $("#area").innerHTML = "";
+        for (let i = 0; i < 5; i++) spawn();
+      }
+      $("#reset").onclick = reset;
+      reset();
+      $("#gift").onclick = () => {
+        $("#secret").classList.add("show");
+        confetti(60);
+        toast("Present successfully revealed. 😂");
+      };
+      $("#finale").onclick = () => {
+        confetti(180);
+        toast("Happy Birthday, Frame! ❤️");
+      };
+    </script>
+  </body>
+</html>
